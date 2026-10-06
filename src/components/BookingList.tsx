@@ -4,12 +4,7 @@ import { useState } from "react";
 import BookingCard from "./BookingCard";
 import RegistrationForm from "./RegistrationForm";
 import type { Booking, NewBooking } from "@/types/booking";
-
-const initialBookings: Booking[] = [
-  { id: "1", desk: "Desk-01", floor: "Floor 1", date: "2026-10-05", active: true },
-  { id: "2", desk: "Desk-02", floor: "Floor 1", date: "2026-10-06", active: false },
-  { id: "3", desk: "Desk-03", floor: "Floor 2", date: "2026-10-07", active: true },
-];
+import { initialBookings } from "@/data/bookings";
 
 export default function BookingList() {
   const [bookings, setBookings] = useState<Booking[]>(initialBookings);

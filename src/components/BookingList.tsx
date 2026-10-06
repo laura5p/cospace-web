@@ -42,6 +42,7 @@ export default function BookingList() {
             {visibleBookings.map((booking) => (
               <li key={booking.id}>
                 <BookingCard
+                  id={booking.id}
                   desk={booking.desk}
                   floor={booking.floor}
                   date={booking.date}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -11,8 +11,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        {children}
+        <div className="app-shell">
+          <Sidebar />
+          <div className="app-main">{children}</div>
+        </div>
       </body>
     </html>
   );

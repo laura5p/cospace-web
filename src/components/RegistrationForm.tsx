@@ -7,43 +7,70 @@ interface RegistrationFormProps {
   onAdd: (booking: NewBooking) => void;
 }
 
+type Field = "desk" | "floor" | "date";
+type FieldErrors = Partial<Record<Field, string>>;
+
 export default function RegistrationForm({ onAdd }: RegistrationFormProps) {
   const [desk, setDesk] = useState("");
   const [floor, setFloor] = useState("");
   const [date, setDate] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState<FieldErrors>({});
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!desk.trim() || !floor.trim() || !date) {
-      setError("Fill in the desk, floor and date.");
-      return;
-    }
+    const found: FieldErrors = {};
+    if (!desk.trim()) found.desk = "Enter a desk name, for example Desk-05.";
+    if (!floor.trim()) found.floor = "Enter a floor, for example Floor 2.";
+    if (!date) found.date = "Choose a date for the booking.";
+
+    setErrors(found);
+    if (Object.keys(found).length > 0) return;
 
     onAdd({ desk: desk.trim(), floor: floor.trim(), date, active: true });
     setDesk("");
     setFloor("");
     setDate("");
-    setError("");
   };
 
   return (
     <form className="booking-form" onSubmit={handleSubmit} noValidate>
-      <h2>Add a booking</h2>
+      {Object.keys(errors).length > 0 && (
+        <p className="form-error" role="alert">Fix the highlighted fields to create the booking.</p>
+      )}
 
       <label htmlFor="desk">Desk</label>
-      <input id="desk" value={desk} onChange={(e) => setDesk(e.target.value)} placeholder="Desk-05" />
+      <input
+        id="desk"
+        value={desk}
+        onChange={(e) => setDesk(e.target.value)}
+        aria-invalid={errors.desk ? true : undefined}
+        aria-describedby={errors.desk ? "desk-error" : undefined}
+      />
+      {errors.desk && <p id="desk-error" className="field-error">{errors.desk}</p>}
 
       <label htmlFor="floor">Floor</label>
-      <input id="floor" value={floor} onChange={(e) => setFloor(e.target.value)} placeholder="Floor 2" />
+      <input
+        id="floor"
+        value={floor}
+        onChange={(e) => setFloor(e.target.value)}
+        aria-invalid={errors.floor ? true : undefined}
+        aria-describedby={errors.floor ? "floor-error" : undefined}
+      />
+      {errors.floor && <p id="floor-error" className="field-error">{errors.floor}</p>}
 
       <label htmlFor="date">Date</label>
-      <input id="date" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+      <input
+        id="date"
+        type="date"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+        aria-invalid={errors.date ? true : undefined}
+        aria-describedby={errors.date ? "date-error" : undefined}
+      />
+      {errors.date && <p id="date-error" className="field-error">{errors.date}</p>}
 
-      {error && <p className="form-error" role="alert">{error}</p>}
-
-      <button type="submit" className="button">Add booking</button>
+      <button type="submit" className="button">Create booking</button>
     </form>
   );
 }

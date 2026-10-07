@@ -5,3 +5,5 @@ export interface Booking {
   date: string;
   active: boolean;
 }
+
+export type NewBooking = Omit<Booking, "id">;

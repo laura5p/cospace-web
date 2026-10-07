@@ -13,15 +13,21 @@ export default async function BookingDetailPage({ params }: PageProps) {
     return (
       <main className="page">
         <h1>Booking not found</h1>
-        <p className="detail-message">This desk booking does not exist or has been removed.</p>
-        <Link href="/" className="back-link">Back to all bookings</Link>
+        <p className="detail-message">
+          This desk booking does not exist or has been removed.
+        </p>
+        <Link href="/" className="back-link">
+          Back to all bookings
+        </Link>
       </main>
     );
   }
 
   return (
     <main className="page">
-      <Link href="/" className="back-link">Back to all bookings</Link>
+      <Link href="/" className="back-link">
+        Back to all bookings
+      </Link>
       <h1>{booking.desk}</h1>
       <dl className="detail-list">
         <dt>Floor</dt>

@@ -3,18 +3,17 @@
 import { useState } from "react";
 import BookingsTable from "./BookingsTable";
 import BaseModal from "./BaseModal";
-import RegistrationForm from "./RegistrationForm";
 import { initialBookings } from "@/data/bookings";
 import type { Booking, NewBooking } from "@/types/booking";
+import CreateBookingForm from "./CreateBookingForm";
 
 export default function Dashboard() {
   const [bookings, setBookings] = useState<Booking[]>(initialBookings);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleAdd = (newBooking: NewBooking) => {
-    setBookings((prev) => [...prev, { id: crypto.randomUUID(), ...newBooking }]);
-    setIsModalOpen(false);
-  };
+const handleAdd = (newBooking: NewBooking) => {
+  setBookings((prev) => [...prev, { id: crypto.randomUUID(), ...newBooking }]);
+};
 
   return (
     <>
@@ -28,7 +27,7 @@ export default function Dashboard() {
       <BookingsTable bookings={bookings} />
 
       <BaseModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Create booking">
-        <RegistrationForm onAdd={handleAdd} />
+        <CreateBookingForm onCreate={handleAdd} />
       </BaseModal>
     </>
   );

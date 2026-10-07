@@ -1,10 +1,9 @@
-import BookingList from "@/components/BookingList";
+import Dashboard from "@/components/Dashboard";
 
 export default function Home() {
   return (
     <main className="page">
-      <h1>Desk Bookings</h1>
-    <BookingList/>
-    </main> 
+      <Dashboard />
+    </main>
   );
 }
